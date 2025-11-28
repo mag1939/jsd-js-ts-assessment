@@ -23,12 +23,17 @@ let prevPlayerRow = 0;
 let prevPlayerCol = 0;
 let playing = true;
 
+// Input error message
+let inputErrorMessage = "";
+
 // Print board
 function printBoard() {
 	console.clear(); // call console.clear() before print each move
-	let tempBoard = [];// create temporary board array[] for us to map our move with real board
+
+	// create temporary board array[] for us to compare our move with original board
+	let tempBoard = [];
 	for (let rowIndex = 0; rowIndex < board.length; rowIndex++){
-		tempBoard.push([]) // in board we also have array in array, we can't just straight add it, then every value will stay in the same array
+		tempBoard.push([]) // in board we also have array in array, we can't just straight add vaule in it.
 		for (let colIndex = 0; colIndex < board[0].length; colIndex++){
 			if (playerRow === rowIndex && playerCol === colIndex) {
 				tempBoard[rowIndex].push(PLAYER);
@@ -37,22 +42,32 @@ function printBoard() {
 			}
 		}
 	}
+
 	// if player leave the spawn spot it will print ░
 	if (playerRow != prevPlayerRow || playerCol != prevPlayerCol) {
 		tempBoard[prevPlayerRow][prevPlayerCol] = "░";
 	}
+	// print our present move on the board.
 	tempBoard.forEach((row) => console.log(row.join("")));
-}
-
-function getInput() {
-	const input = prompt("Which way? (w/a/s/d): ");
-	if (input === "w" || input === "s" || input === "a" || input === "d") {
-		return input
-	} else {
-		console.log("Wrong input please try again.")
+	// if you add the invaild input, this will jump scare you!
+	if (inputErrorMessage) {
+		console.log(inputErrorMessage);
 	}
 }
 
+// Get input and check it
+function getInput() {
+	const input = prompt("Which way? (w/a/s/d): ");
+	if (input === "w" || input === "s" || input === "a" || input === "d") {
+        inputErrorMessage = ""; // ล้าง Error เมื่อ Input ถูก
+		return input
+	} else {
+        inputErrorMessage = "⚠️  Invalid input. Please enter w, a, s, or d."; // เก็บข้อความ Error
+        return undefined;
+	}
+}
+
+// Move to the position decided by your input
 function isMoving(validInput) {
 	switch (validInput) {
 		case "w":
@@ -72,6 +87,7 @@ function isMoving(validInput) {
 	}
 }
 
+// Check if you position is still in the game rules
 function ruleChecker(){
 	if (playerRow < 0) {
 		console.log("RIP! You fell out of the boundaries!")
@@ -99,8 +115,7 @@ function ruleChecker(){
 while (playing) {
 	// Game play loop
 	printBoard(board);
-
-	// get input(that will convert to lower case at any cost) and move our position
+	// get input and move our position
 	isMoving(getInput());
 	// check if we still on the floor and not falling
 	ruleChecker();
