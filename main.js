@@ -37,12 +37,11 @@ function printBoard() {
 			}
 		}
 	}
+	// if player leave the spawn spot it will print ░
 	if (playerRow != prevPlayerRow || playerCol != prevPlayerCol) {
 		tempBoard[prevPlayerRow][prevPlayerCol] = "░";
 	}
 	tempBoard.forEach((row) => console.log(row.join("")));
-	// console.log(`previous: ${prevPlayerRow}, ${prevPlayerCol}`)
-	// console.log(`after: ${playerRow}, ${playerCol}`);
 }
 
 
@@ -101,10 +100,9 @@ while (playing) {
 	// Game play loop
 	printBoard(board);
 	const input = prompt("Which way? (w/a/s/d): ");
-	// get input and update our position
-	isMoving(isValidInput(input));
-	// console.log(playerRow, playerCol)
-	// check if our position still in boundaries
+	// get input(that will convert to lower case at any cost) and update our position
+	isMoving(isValidInput(input.toLowerCase));
+	// check if we still in the boundaries and floor
 	ruleChecker();
 }
 
