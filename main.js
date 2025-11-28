@@ -19,22 +19,27 @@ let board = [
 // Game state
 let playerRow = 0;
 let playerCol = 0;
+let prevPlayerRow = 0;
+let prevPlayerCol = 0;
 let playing = true;
 
 // Print board
-function printBoard(board) {
+function printBoard() {
 	console.clear(); // call console.clear() before print each move
+	let tempBoard = [];
 	for (let rowIndex = 0; rowIndex < board.length; rowIndex++){
-		let tempRow = "";
+		tempBoard.push([])
 		for (let colIndex = 0; colIndex < board[0].length; colIndex++){
 			if (playerRow === rowIndex && playerCol === colIndex) {
-				tempRow += PLAYER;
+				tempBoard[rowIndex].push(PLAYER);
 			} else {
-				tempRow += board[rowIndex][colIndex];
+				tempBoard[rowIndex].push(board[rowIndex][colIndex]);
 			}
 		}
-		console.log(tempRow);
 	}
+	tempBoard.forEach((row) => console.log(row.join("")));
+	console.log(`previous: ${prevPlayerRow}, ${prevPlayerCol}`)
+	console.log(`after: ${playerRow}, ${playerCol}`);
 }
 
 
@@ -78,7 +83,7 @@ function ruleChecker(){
 	} else if (playerCol > board[0].length - 1) {
 		console.log("Game Over!")
 		playing = false
-	} else if (board[playerRow][playerCol] === "0") {
+	} else if (board[playerRow][playerCol] === "O") {
 		console.log("Game Over!")
 		playing = false
 	} else if (board[playerRow][playerCol] === "^") {
@@ -90,16 +95,14 @@ function ruleChecker(){
 }
 
 while (playing) {
-  // Game play loop
-  printBoard(board);
-  const input = prompt("Which way? (w/a/s/d): ");
-
-  // get input and update our position
-  isMoving(isValidInput(input));
-  // console.log(playerRow, playerCol)
-  // check if our position still in boundaries
-  console.log(`after: ${playerRow}, ${playerCol}`)
-  ruleChecker();
+	// Game play loop
+	printBoard(board);
+	const input = prompt("Which way? (w/a/s/d): ");
+	// get input and update our position
+	isMoving(isValidInput(input));
+	// console.log(playerRow, playerCol)
+	// check if our position still in boundaries
+	ruleChecker();
 }
 
 
