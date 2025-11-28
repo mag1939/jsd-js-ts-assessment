@@ -26,9 +26,9 @@ let playing = true;
 // Print board
 function printBoard() {
 	console.clear(); // call console.clear() before print each move
-	let tempBoard = [];
+	let tempBoard = [];// create temporary board array[] for us to map our move with real board
 	for (let rowIndex = 0; rowIndex < board.length; rowIndex++){
-		tempBoard.push([])
+		tempBoard.push([]) // in board we also have array in array, we can't just straight add it, then every value will stay in the same array
 		for (let colIndex = 0; colIndex < board[0].length; colIndex++){
 			if (playerRow === rowIndex && playerCol === colIndex) {
 				tempBoard[rowIndex].push(PLAYER);
@@ -44,8 +44,8 @@ function printBoard() {
 	tempBoard.forEach((row) => console.log(row.join("")));
 }
 
-
-function isValidInput(input) {
+function getInput() {
+	const input = prompt("Which way? (w/a/s/d): ");
 	if (input === "w" || input === "s" || input === "a" || input === "d") {
 		return input
 	} else {
@@ -74,19 +74,19 @@ function isMoving(validInput) {
 
 function ruleChecker(){
 	if (playerRow < 0) {
-		console.log("🕳️!!")
+		console.log("RIP! You fell out of the boundaries!")
 		playing = false
 	} else if (playerRow > board.length - 1) {
-		console.log("🕳️!!")
+		console.log("RIP! You fell out of the boundaries!")
 		playing = false
 	} else if (playerCol < 0) {
-		console.log("🕳️!!")
+		console.log("RIP! You fell out of the boundaries!")
 		playing = false
 	} else if (playerCol > board[0].length - 1) {
-		console.log("🕳️!!")
+		console.log("RIP! You fell out of the boundaries!")
 		playing = false
 	} else if (board[playerRow][playerCol] === "O") {
-		console.log("🕳️!!")
+		console.log("RIP! You fell into the 🕳️")
 		playing = false
 	} else if (board[playerRow][playerCol] === "^") {
 		console.log("DAMN THIS 🧢 IS SO COOL!!")
@@ -99,10 +99,10 @@ function ruleChecker(){
 while (playing) {
 	// Game play loop
 	printBoard(board);
-	const input = prompt("Which way? (w/a/s/d): ");
-	// get input(that will convert to lower case at any cost) and update our position
-	isMoving(isValidInput(input.toLowerCase));
-	// check if we still in the boundaries and floor
+
+	// get input(that will convert to lower case at any cost) and move our position
+	isMoving(getInput());
+	// check if we still on the floor and not falling
 	ruleChecker();
 }
 
