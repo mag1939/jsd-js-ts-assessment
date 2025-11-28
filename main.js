@@ -24,8 +24,16 @@ let playing = true;
 // Print board
 function printBoard(board) {
 	console.clear(); // call console.clear() before print each move
-	console.log(board);
+	for (const row of board){
+		let tempRow = "";
+		for (let block of row){
+			tempRow += block;
+		}
+		console.log(tempRow);
+	}
 }
+
+
 
 // Game play loop
 printBoard(board);
