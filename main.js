@@ -114,7 +114,7 @@ function ruleChecker(){
 
 while (playing) {
 	// Game play loop
-	printBoard(board);
+	printBoard();
 	// get input and move our position
 	isMoving(getInput());
 	// check if we still on the floor and not falling
