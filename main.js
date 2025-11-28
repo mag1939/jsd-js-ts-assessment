@@ -37,9 +37,12 @@ function printBoard() {
 			}
 		}
 	}
+	if (playerRow != prevPlayerRow || playerCol != prevPlayerCol) {
+		tempBoard[prevPlayerRow][prevPlayerCol] = "░";
+	}
 	tempBoard.forEach((row) => console.log(row.join("")));
-	console.log(`previous: ${prevPlayerRow}, ${prevPlayerCol}`)
-	console.log(`after: ${playerRow}, ${playerCol}`);
+	// console.log(`previous: ${prevPlayerRow}, ${prevPlayerCol}`)
+	// console.log(`after: ${playerRow}, ${playerCol}`);
 }
 
 
@@ -72,22 +75,22 @@ function isMoving(validInput) {
 
 function ruleChecker(){
 	if (playerRow < 0) {
-		console.log("Game Over!")
+		console.log("🕳️!!")
 		playing = false
 	} else if (playerRow > board.length - 1) {
-		console.log("Game Over!")
+		console.log("🕳️!!")
 		playing = false
 	} else if (playerCol < 0) {
-		console.log("Game Over!")
+		console.log("🕳️!!")
 		playing = false
 	} else if (playerCol > board[0].length - 1) {
-		console.log("Game Over!")
+		console.log("🕳️!!")
 		playing = false
 	} else if (board[playerRow][playerCol] === "O") {
-		console.log("Game Over!")
+		console.log("🕳️!!")
 		playing = false
 	} else if (board[playerRow][playerCol] === "^") {
-		console.log("DAMN THIS HAT IS SO COOL!!")
+		console.log("DAMN THIS 🧢 IS SO COOL!!")
 		playing = false
 	} else if (board[playerRow][playerCol] === "░"){
 		playing = true
