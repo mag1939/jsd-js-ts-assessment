@@ -35,8 +35,10 @@ function printBoard() {
 	for (let rowIndex = 0; rowIndex < board.length; rowIndex++){
 		tempBoard.push([]) // in board we also have array in array, we can't just straight add vaule in it.
 		for (let colIndex = 0; colIndex < board[0].length; colIndex++){
+			// if our POS is in the same as POS of this N value metric, add ourself value instead. (cuz we walk in the same spot)
 			if (playerRow === rowIndex && playerCol === colIndex) {
 				tempBoard[rowIndex].push(PLAYER);
+			// if not add the same value from the board
 			} else {
 				tempBoard[rowIndex].push(board[rowIndex][colIndex]);
 			}
